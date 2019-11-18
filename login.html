@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title> School Activities </title>
+    <meta charset="utf-8"/>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="start.css">
+</head>
+
+<body>
+    <script src="login.js"></script>
+
+    <div class="signup">
+        <h2>Sign Up</h2>
+        <form id="userDetails" onsubmit="return false">
+            Username: <input type="text" id="UsernameInput"><br>
+            Password: <input type="password" id="PasswordInput"><br>
+            <input type="submit" onclick="storeUser()">
+        </form>
+        <p id="result"></p>
+    </div>
+
+    <div class="login">
+        <h2>Log In</h2>
+        <div id="loginPara">
+            <form id="userDetails" onsubmit="return false">
+                Username: <input type="text" id="UsernameInput"><br>
+                Password: <input type="password" id="PasswordInput"><br>
+                <input type="submit" onclick="login()">
+            </form>
+        </div>
+        <p id="loginFailure" style="color:red;"></p>
+    </div>
+
+    <div class="proceed">
+        <button class=button3 onclick="proceed()">Proceed to Website</button>
+        <p id="success"></p>
+    </div>
+
+    <div class="imgbox">
+        <img class="center-fit" src="basketball.jpg">
+    </div>
+</body>
+
+</html>
