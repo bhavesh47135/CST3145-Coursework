@@ -1,5 +1,6 @@
 function login() {
-    var Username = document.getElementById("UsernameInput").value;
+    var Username = document.getElementById("LoginUsername").value;
+    var Password = document.getElementById("LoginPassword").value;
 
     if (localStorage[Username] === undefined) {
         document.getElementById("loginFailure").innerHTML = "Username not recognized.";
@@ -7,8 +8,7 @@ function login() {
     }
     else {
         var userObject = JSON.parse(localStorage[Username]);
-        var password = document.getElementById("PasswordInput").value;
-        if (password === userObject.Password) {
+        if (Password === userObject.Password) {
             document.getElementById("loginPara").innerHTML = "Welcome " + userObject.Username + "!";
             document.getElementById("loginFailure").innerHTML = "";
             localStorage.loggedInUser = userObject.Username;
