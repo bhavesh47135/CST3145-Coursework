@@ -1,47 +1,51 @@
-function login() {
-    var Username = document.getElementById("LoginUsername").value;
-    var Password = document.getElementById("LoginPassword").value;
+var signupApp = new Vue ({
+    el: '#signupForm',
+    data: {
+    username: '',
+    password: '',
+    },
+    methods: {
+        onSubmit: function() {
+            var userObject = {};
+            var usernameInput = document.getElementById("username").value;
+            var passwordInput = document.getElementById("password").value;
+            if (usernameInput != "" && passwordInput != "") {
+                localStorage[userObject.Username] = JSON.stringify(userObject);
+                userObject.Username = usernameInput;
+                userObject.Password = passwordInput;
+                localStorage[userObject.Username] = JSON.stringify(userObject);
+                alert("Registration Successful!");
+            }
+        }
+    } 
+})
 
-    if (localStorage[Username] === undefined) {
-        document.getElementById("loginFailure").innerHTML = "Username not recognized.";
-        return;
-    }
-    else {
-        var userObject = JSON.parse(localStorage[Username]);
-        if (Password === userObject.Password) {
-            document.getElementById("loginPara").innerHTML = "Welcome " + userObject.Username + "!";
-            document.getElementById("loginFailure").innerHTML = "";
-            localStorage.loggedInUser = userObject.Username;
-        }
-        else {
-            document.getElementById("loginFailure").innerHTML = "Password is incorrect.";
-        }
-    }
-}
-
-function storeUser() {
-    var userObject = {};
-    var Username = document.getElementById("UsernameInput").value;
-
-    if (Username == null || Username == "") {
-        document.getElementById("result").innerHTML = "<b>Enter a valid Username.</b>";
-    }
-    else {
-        localStorage[userObject.Username] = JSON.stringify(userObject);
-        var Password = document.getElementById("PasswordInput").value;
-        if (Password == null || Password == "") {
-            document.getElementById("result").innerHTML = "<b>Enter a valid Password.</b>"
-        }
-        else {
-            userObject.Username = document.getElementById("UsernameInput").value;
-            userObject.Password = document.getElementById("PasswordInput").value;
-            localStorage[userObject.Username] = JSON.stringify(userObject);
-            document.getElementById("result").innerHTML = "<b>Registration successful.</b>";
-            document.getElementById("UsernameInput").disabled = true;
-            document.getElementById("PasswordInput").disabled = true;
+var loginApp = new Vue({
+    el: '#loginForm',
+    data: {
+    userName: '',
+    passWord: '',
+    },
+    methods: {
+        onSubmit: function() {
+            var username = document.getElementById("userName").value;
+            var Password = document.getElementById("passWord").value;
+            if (localStorage[username] === undefined) {
+                alert("Username not recognized.");
+            }
+            else {
+                var userObject = JSON.parse(localStorage[username]);
+                if (Password === userObject.Password) {
+                    document.getElementById("loginForm").innerHTML = "Welcome " + username + "!";
+                    localStorage.loggedInUser = username;
+                }
+                else {
+                    alert("Password not recognized.");
+                }
+            }
         }
     }
-}
+})
 
 function proceed() {
     if (localStorage.loggedInUser === undefined) {
@@ -59,4 +63,18 @@ function pLogin() {
 
 function sLogin() {
     localStorage.Type = "Student";
+}
+
+function signOut() {
+    var confirmation = confirm("Are you sure you want to Log Out?");
+    if (confirmation == true) {
+        if (localStorage.loggedInUser === undefined || localStorage.loggedInUser == "") {
+            alert("You are not currently logged in.");
+        }
+        else {
+            alert("Successfully logged out!");
+            localStorage.loggedInUser = "";
+            location.href="startpage.html";
+        }
+    }
 }

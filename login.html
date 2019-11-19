@@ -5,32 +5,31 @@
 <head>
     <title> School Activities </title>
     <meta charset="utf-8"/>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <link rel="stylesheet" type="text/css" href="start.css">
 </head>
 
 <body>
-    <script src="login.js"></script>
-
     <div class="signup">
         <h2>Sign Up</h2>
-        <form id="userDetails" onsubmit="return false">
-            Username: <input type="text" id="UsernameInput"><br>
-            Password: <input type="password" id="PasswordInput"><br>
-            <input type="submit" onclick="storeUser()">
+        <form id="signupForm">
+            <label for="username">Username: </label>
+            <input required type="text" id="username" v-model="username"> <br>
+            <label for="password">Password: </label>
+            <input required type="password" id="password" v-model="password"> <br>
+            <input type="submit" v-on:click='onSubmit'>
         </form>
-        <p id="result"></p>
     </div>
 
     <div class="login">
         <h2>Log In</h2>
-        <div id="loginPara">
-            <form id="userDetails" onsubmit="return false">
-                Username: <input type="text" id="LoginUsername"><br>
-                Password: <input type="password" id="LoginPassword"><br>
-                <input type="submit" onclick="login()">
-            </form>
-        </div>
-        <p id="loginFailure" style="color:red;"></p>
+        <form id="loginForm">
+            <label for="userName">Username:</label>
+            <input required type="text" id="userName" v-model="userName"> <br>
+            <label for="passWord">Password:</label>
+            <input required type="password" id="passWord" v-model="passWord"> <br>
+            <input type="submit" v-on:click='onSubmit'>
+        </form>
     </div>
 
     <div class="proceed">
@@ -41,6 +40,8 @@
     <div class="imgbox">
         <img class="center-fit" src="basketball.jpg">
     </div>
+
+    <script src="login.js"></script>
 </body>
 
 </html>
