@@ -41,7 +41,7 @@
 
             <h1>Search Activities</h1>
             <div id="search">
-                <div class="search-wrapper">
+                <div>
                     <label>Search title:</label>
                     <input type="text" v-model="searchBar" placeholder="Search title.."/>
                 </div>
@@ -74,6 +74,18 @@
                     </div>
                 </div>
             </div>
+
+            <h1>Sort by Price</h1>
+
+            <div id="sortPrice">
+                <div id="courseList">
+                    <h2>Course list</h2>
+                    <div v-for="course in sortedArray" class="course">
+                        <li v-for='(value, name) in course'>{{name}}: {{value}}</li>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <div class="item4">

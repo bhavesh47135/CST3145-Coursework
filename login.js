@@ -131,7 +131,7 @@ var filterApp = new Vue({
                 else {
                     topicMatch = true;
                 }
-                if (locations.length >0) {
+                if (locations.length > 0) {
                     if (locations.includes(course.location)) {
                         locationMatch = true;
                     }
@@ -170,3 +170,23 @@ var searchApp = new Vue ({
         }
     }
 })
+
+var sortpriceApp = new Vue ({
+    el: '#sortPrice',
+    data: {
+        courses: courses,
+    },
+    computed: {
+        sortedArray: function() {
+            function compare(a, b) {
+                if (a.price < b.price)
+                    return -1;
+                    if (a.price > b.price)
+                        return 1;
+                        return 0;
+                }
+            return this.courses.sort(compare);
+        }
+    }
+})
+
