@@ -13,6 +13,7 @@ var signupApp = new Vue ({
                 localStorage[userObject.Username] = JSON.stringify(userObject);
                 userObject.Username = usernameInput;
                 userObject.Password = passwordInput;
+                userObject.Type = localStorage.Type;
                 localStorage[userObject.Username] = JSON.stringify(userObject);
                 alert("Registration Successful!");
             }
@@ -35,7 +36,7 @@ var loginApp = new Vue({
             }
             else {
                 var userObject = JSON.parse(localStorage[username]);
-                if (Password === userObject.Password) {
+                if (Password === userObject.Password && localStorage.Type === userObject.Type) {
                     document.getElementById("loginForm").innerHTML = "Welcome " + username + "!";
                     localStorage.loggedInUser = username;
                 }
@@ -52,17 +53,23 @@ function proceed() {
         document.getElementById("success").innerHTML = "<b>Please log in.</b>"
     }
     else {
-        document.getElementById("success").innerHTML = "<b>Logging in.</b>"
-        location.href="main.html"
+        if (localStorage.Type == "student") {
+            document.getElementById("success").innerHTML = "<b>Logging in.</b>"
+            location.href="main.html"
+        }
+        else if (localStorage.Type = "provider") {
+            document.getElementById("success").innerHTML = "<b>Logging in.</b>"
+            location.href="providerhome.html"
+        }
     }
 }
 
-function pLogin() {
-    localStorage.Type = "Parent";
+function sp1Login() {
+    localStorage.Type = "student";
 }
 
-function sLogin() {
-    localStorage.Type = "Student";
+function sp2Login() {
+    localStorage.Type = "provider";
 }
 
 function signOut() {
@@ -78,3 +85,62 @@ function signOut() {
         }
     }
 }
+
+var courses = [
+    { 'topic': 'math', 'location': 'hendon', 'price': 100 },
+    { 'topic': 'math', 'location': 'colindale', 'price': 80 },
+    { 'topic': 'math', 'location': 'brent cross', 'price': 90 },
+    { 'topic': 'math', 'location': 'golders green', 'price': 120 },
+    { 'topic': 'english', 'location': 'hendon', 'price': 110 },
+    { 'topic': 'english', 'location': 'colindale', 'price': 90 },
+    { 'topic': 'english', 'location': 'brent cross', 'price': 90 },
+    { 'topic': 'english', 'location': 'golders green', 'price': 130 },
+    { 'topic': 'piano', 'location': 'hendon', 'price': 120 },
+    { 'topic': 'piano', 'location': 'golders green', 'price': 140 }
+]
+
+var filterApp = new Vue({
+    el: '#filter',
+    data: {
+    courses: courses,
+    selectedTopic: [],
+    selectedLocation: [],
+    },
+    methods: {
+        reset: function() {
+        this.selectedTopic = [];
+        this.selectedLocation = [];
+        }
+    },
+    computed: {
+        topics: function () { // return an array of all the topics
+            return [...new Set(this.courses.map(x => x.topic))]
+            },
+        locations: function () {
+            return [...new Set(this.courses.map(x => x.location))]
+        },
+        filteredCourses: function() {
+            var topics = this.selectedTopic, locations = this.selectedLocation;
+            return this.courses.filter(function(course) {
+                var topicMatch = false, locationMatch = false;
+                if (topics.length > 0) {
+                    if (topics.includes(course.topic)) {
+                        topicMatch = true;
+                    }
+                }
+                else {
+                    topicMatch = true;
+                }
+                if (locations.length >0) {
+                    if (locations.includes(course.location)) {
+                        locationMatch = true;
+                    }
+                }
+                else {
+                    locationMatch = true;
+                }
+                return topicMatch && locationMatch
+            })
+        }
+    }
+})

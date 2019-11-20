@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title> School Activities </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body> 
+    <div class="grid-container"> <!-- CSS Grid -->
+        <div class="item1"> <!-- Header -->
+            <header>
+                <h1>School Activities</h1>
+            </header>
+        </div>
+        <div class="item2"> <!-- Nav Bar -->
+            <nav>
+                <ul>
+                    <li class="home"> <!-- name of button (item in the list) -->
+                        <a href="main.html">Home</a>
+                    </li>
+                    <li class="activities">
+                        <a href="activities.html">Activities</a>
+                    </li>
+                    <li class="reviews">
+                        <a href="reviews.html">Reviews</a>
+                    </li> <br>
+                    <li class="signout">
+                        <p onclick="signOut()">Sign Out</p>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="item3">
+            <div id="filter">
+                <h1>Filters</h1>
+                <select multiple v-model='selectedTopic'>
+                    <option v-for='topic in topics'>
+                        {{topic}}
+                    </option>
+                </select>
+                <p>Selected topics: {{selectedTopic}}</p>
+                <!-- <br> -->
+                <select multiple v-model='selectedLocation'>
+                    <option v-for="location in locations">{{location}}</option>
+                </select>
+                <p>Selected location: {{selectedLocation}}</p>
+                <button v-on:click='reset'>reset</button>
+                <div id="courseList">
+                    <h1>Course list</h1>
+                    <div v-for="course in filteredCourses" class="course">
+                        <li v-for='(value, name) in course'>{{name}}: {{value}}</li>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="item4">
+            
+        </div>
+        <div class="item5">
+            <div class="footer">
+            </div>
+        </div>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+
+</html>
