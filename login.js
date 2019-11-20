@@ -102,14 +102,14 @@ var courses = [
 var filterApp = new Vue({
     el: '#filter',
     data: {
-    courses: courses,
-    selectedTopic: [],
-    selectedLocation: [],
+        courses: courses,
+        selectedTopic: [],
+        selectedLocation: [],
     },
     methods: {
         reset: function() {
-        this.selectedTopic = [];
-        this.selectedLocation = [];
+            this.selectedTopic = [];
+            this.selectedLocation = [];
         }
     },
     computed: {
@@ -140,6 +140,32 @@ var filterApp = new Vue({
                     locationMatch = true;
                 }
                 return topicMatch && locationMatch
+            })
+        }
+    }
+})
+  
+var searchApp = new Vue ({
+    el: '#search',
+    data: {
+        courses: courses,
+        searchBar: '',
+    },
+    methods: {
+        reset: function() {
+            this.searchBar = [];
+        }
+    },
+    computed: {
+        topics: function () { // return an array of all the topics
+            return [...new Set(this.courses.map(x => x.topic))]
+            },
+        locations: function () {
+            return [...new Set(this.courses.map(x => x.location))]
+        },
+        filteredList() {
+            return this.courses.filter(courses => {
+            return courses.topic.toLowerCase().includes(this.searchBar.toLowerCase())
             })
         }
     }
