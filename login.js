@@ -1,24 +1,24 @@
-var signupApp = new Vue ({
+var signupApp = new Vue({
     el: '#signupForm',
     data: {
-    username: '',
-    password: '',
+        username: '',
+        password: '',
     },
     methods: {
         onSubmit: function() {
             var userObject = {};
-            var usernameInput = document.getElementById("username").value;
-            var passwordInput = document.getElementById("password").value;
+            var usernameInput = this.username;
+            var passwordInput = this.password;
             if (usernameInput != "" && passwordInput != "") {
-                localStorage[userObject.Username] = JSON.stringify(userObject);
-                userObject.Username = usernameInput;
-                userObject.Password = passwordInput;
-                userObject.Type = localStorage.Type;
-                localStorage[userObject.Username] = JSON.stringify(userObject);
+                localStorage[userObject.username] = JSON.stringify(userObject);
+                userObject.username = usernameInput;
+                userObject.password = passwordInput;
+                userObject.type = localStorage.Type;
+                localStorage[userObject.username] = JSON.stringify(userObject);
                 alert("Registration Successful!");
             }
         }
-    } 
+    }
 })
 
 var loginApp = new Vue({
@@ -29,15 +29,15 @@ var loginApp = new Vue({
     },
     methods: {
         onSubmit: function() {
-            var username = document.getElementById("userName").value;
-            var Password = document.getElementById("passWord").value;
+            var username = this.userName;
+            var password = this.passWord;
             if (localStorage[username] === undefined) {
                 alert("Username not recognized.");
             }
             else {
                 var userObject = JSON.parse(localStorage[username]);
-                if (Password === userObject.Password && localStorage.Type === userObject.Type) {
-                    document.getElementById("loginForm").innerHTML = "Welcome " + username + "!";
+                if (password === userObject.password && localStorage.Type === userObject.type) {
+                    alert("Successfully logged in!");
                     localStorage.loggedInUser = username;
                 }
                 else {
@@ -50,15 +50,13 @@ var loginApp = new Vue({
 
 function proceed() {
     if (localStorage.loggedInUser === undefined) {
-        document.getElementById("success").innerHTML = "<b>Please log in.</b>"
+        alert("Please log in.");
     }
     else {
         if (localStorage.Type == "student") {
-            document.getElementById("success").innerHTML = "<b>Logging in.</b>"
             location.href="main.html"
         }
         else if (localStorage.Type = "provider") {
-            document.getElementById("success").innerHTML = "<b>Logging in.</b>"
             location.href="providerhome.html"
         }
     }
@@ -171,7 +169,7 @@ var searchApp = new Vue ({
     }
 })
 
-var sortpriceApp = new Vue ({
+/*var sortpriceApp = new Vue ({
     el: '#sortPrice',
     data: {
         courses: courses,
@@ -188,5 +186,48 @@ var sortpriceApp = new Vue ({
             return this.courses.sort(compare);
         }
     }
+})*/
+
+var sortpriceApp = new Vue ({
+    el: '#sortPrice',
+    data: {
+        courses: courses,
+
+    },
+    computed: {
+        sortedArray: function() {
+            function compare(a, b) {
+                if (a.price < b.price)
+                    return -1;
+                    if (a.price > b.price)
+                        return 1;
+                        return 0;
+                }
+            return this.courses.sort(compare);
+        }
+    }
 })
 
+function showPrice() {
+    var x = document.getElementById("courseList");
+    x.style.visibility = "hidden";
+}
+
+/*var reviewApp = new Vue ({
+    el: '#reviews',
+    data: {
+        activities = [],
+        stars = [],
+        reviews = [],
+        activity = '',
+        star = '',
+        review = '',
+    },
+    methods: {
+        onSubmit: function() {
+            var activity = this.activity;
+            var star = this.star;
+            var review = this.review;
+        }
+    }
+})*/

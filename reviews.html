@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title> School Activities </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body> 
+    <div class="grid-container"> <!-- CSS Grid -->
+        <div class="item1"> <!-- Header -->
+            <header>
+                <h1>School Activities</h1>
+            </header>
+        </div>
+        <div class="item2"> <!-- Nav Bar -->
+            <nav>
+                <ul>
+                    <li class="home"> <!-- name of button (item in the list) -->
+                        <a href="main.html">Home</a>
+                    </li>
+                    <li class="activities">
+                        <a href="activities.html">Activities</a>
+                    </li>
+                    <li class="reviews">
+                        <a href="reviews.html">Reviews</a>
+                    </li> <br>
+                    <li class="signout">
+                        <p onclick="signOut()">Sign Out</p>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="item3">
+            <form id="reviews">
+                <label for="activity">Course: </label>
+                <input required type="text" id="activity" v-model="activity"> <br>
+                <label for="star">Stars: </label>
+                <select id="star" v-model="star">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                </select> <br>
+                <label for="review">Review: </label>
+                <input required type="text" id="review" v-model="review"> <br>
+                <input type="submit" v-on:click='submitReview'>
+            </form>
+            <div v-for="activity in courses" class="displayReviews">
+                <li v-repeat="courses">
+                    {{courses}}
+                </li>
+            </div>
+        </div>
+        <div class="item4">
+
+        </div>
+        <div class="item5">
+            <div class="footer">
+            </div>
+        </div>
+    </div>
+
+    <script src="login.js"></script>
+    <script>
+        var courses = [];
+        var stars = [];
+        var reviews = [];
+        
+        var reviewApp = new Vue ({
+            el: '#reviews',
+            data: {
+                activity: '',
+                star: '',
+                review: '',
+            },
+            methods: {
+                submitReview: function() {
+                    activity = this.activity;
+                    star = this.star;
+                    review = this.review;
+                    courses.push(activity);
+                    stars.push(star);
+                    reviews.push(review);
+                    //for (i = 0; i < courses.length; i++)
+                        //document.write(courses.join(" <br> "));
+                        //document.write(stars.join(" <br> "));
+                        //document.write(reviews.join(" <br> "));
+                }
+            },
+            computed: {
+                displayReviews() {
+                    return activity
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
