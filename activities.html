@@ -25,7 +25,7 @@
                         <a href="main.html">Home</a>
                     </li>
                     <li class="activities">
-                        <a href="activities.html">Activities</a>
+                        <a href="activities.html">Classes</a>
                     </li>
                     <li class="reviews">
                         <a href="reviews.html">Reviews</a>
@@ -39,21 +39,21 @@
 
         <div class="item3">
 
-            <h1>Search Activities</h1>
+            <h1>Search Classes</h1>
             <div id="search">
                 <div>
                     <label>Search title:</label>
                     <input type="text" v-model="searchBar" placeholder="Search title.."/>
                 </div>
                 <div id="courseList">
-                    <h2>Course list</h2>
+                    <h2>Course List</h2>
                     <div v-for="course in filteredList" class="course">
                         <li v-for='(value, name) in course'>{{name}}: {{value}}</li>
                     </div>
                 </div>
             </div> <br>
 
-            <h1>Filter Activities</h1>
+            <h1>Filter Classes</h1>
             <div id="filter">
                 <select multiple v-model='selectedTopic'>
                     <option v-for='topic in topics'>
@@ -61,14 +61,13 @@
                     </option>
                 </select>
                 <p>Selected topics: {{selectedTopic}}</p>
-                <!-- <br> -->
                 <select multiple v-model='selectedLocation'>
                     <option v-for="location in locations">{{location}}</option>
                 </select>
                 <p>Selected location: {{selectedLocation}}</p>
                 <button v-on:click='reset'>reset</button>
                 <div id="courseList">
-                    <h2>Course list</h2>
+                    <h2>Course List</h2>
                     <div v-for="course in filteredCourses" class="course">
                         <li v-for='(value, name) in course'>{{name}}: {{value}}</li>
                     </div>
@@ -77,14 +76,23 @@
 
             <h1>Sort by Price</h1>
 
-            <div id="sortPrice">
+            <button onclick="priceHighToLow()">Sort Price (High-Low)</button>
+            <button onclick="priceLowToHigh()">Sort Price (Low-High)</button>
+            <div id="sortPrice1" style="display: none">
                 <div id="courseList">
-                    <h2>Course list</h2>
+                    <h2>Course List</h2>
                     <div v-for="course in sortedArray" class="course">
                         <li v-for='(value, name) in course'>{{name}}: {{value}}</li>
                     </div>
                 </div>
-                <button class="hidePrice" onclick="showPrice()">Hide Price</button>
+            </div>
+            <div id="sortPrice2" style="display: none">
+                <div id="courseList">
+                    <h2>Course List</h2>
+                    <div v-for="course in sortedArray" class="course">
+                        <li v-for='(value, name) in course'>{{name}}: {{value}}</li>
+                    </div>
+                </div>
             </div>
 
         </div>

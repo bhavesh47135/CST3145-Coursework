@@ -9,7 +9,7 @@ var signupApp = new Vue({
             var userObject = {};
             var usernameInput = this.username;
             var passwordInput = this.password;
-            if (usernameInput != "" && passwordInput != "") {
+            if (usernameInput != "" && passwordInput != "" && /\S+@\S+\.\S+/.test(usernameInput)) {
                 localStorage[userObject.username] = JSON.stringify(userObject);
                 userObject.username = usernameInput;
                 userObject.password = passwordInput;
@@ -32,7 +32,7 @@ var loginApp = new Vue({
             var username = this.userName;
             var password = this.passWord;
             if (localStorage[username] === undefined) {
-                alert("Username not recognized.");
+                alert("E-Mail not recognized.");
             }
             else {
                 var userObject = JSON.parse(localStorage[username]);
@@ -87,14 +87,14 @@ function signOut() {
 var courses = [
     { 'topic': 'math', 'location': 'hendon', 'price': 100 },
     { 'topic': 'math', 'location': 'colindale', 'price': 80 },
-    { 'topic': 'math', 'location': 'brent cross', 'price': 90 },
+    { 'topic': 'art', 'location': 'brent cross', 'price': 90 },
     { 'topic': 'math', 'location': 'golders green', 'price': 120 },
     { 'topic': 'english', 'location': 'hendon', 'price': 110 },
-    { 'topic': 'english', 'location': 'colindale', 'price': 90 },
+    { 'topic': 'chemistry', 'location': 'colindale', 'price': 90 },
     { 'topic': 'english', 'location': 'brent cross', 'price': 90 },
     { 'topic': 'english', 'location': 'golders green', 'price': 130 },
-    { 'topic': 'piano', 'location': 'hendon', 'price': 120 },
-    { 'topic': 'piano', 'location': 'golders green', 'price': 140 }
+    { 'topic': 'biology', 'location': 'hendon', 'price': 120 },
+    { 'topic': 'chemistry', 'location': 'golders green', 'price': 140 }
 ]
 
 var filterApp = new Vue({
@@ -169,30 +169,29 @@ var searchApp = new Vue ({
     }
 })
 
-/*var sortpriceApp = new Vue ({
-    el: '#sortPrice',
+var sortpriceApp1 = new Vue ({
+    el: '#sortPrice1',
     data: {
         courses: courses,
     },
     computed: {
         sortedArray: function() {
             function compare(a, b) {
-                if (a.price < b.price)
+                if (a.price > b.price)
                     return -1;
-                    if (a.price > b.price)
+                    if (a.price < b.price)
                         return 1;
                         return 0;
                 }
             return this.courses.sort(compare);
         }
     }
-})*/
+})
 
-var sortpriceApp = new Vue ({
-    el: '#sortPrice',
+var sortpriceApp2 = new Vue ({
+    el: '#sortPrice2',
     data: {
         courses: courses,
-
     },
     computed: {
         sortedArray: function() {
@@ -208,9 +207,14 @@ var sortpriceApp = new Vue ({
     }
 })
 
-function showPrice() {
-    var x = document.getElementById("courseList");
-    x.style.visibility = "hidden";
+function priceHighToLow() {
+    document.getElementById("sortPrice1").style.display = "inline-block";
+    document.getElementById("sortPrice2").style.display = "none";
+}
+
+function priceLowToHigh() {
+    document.getElementById("sortPrice1").style.display = "none";
+    document.getElementById("sortPrice2").style.display = "inline-block";
 }
 
 /*var reviewApp = new Vue ({

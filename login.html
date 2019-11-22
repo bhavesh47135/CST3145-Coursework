@@ -13,8 +13,8 @@
     <div class="signup">
         <h2>Sign Up</h2>
         <form id="signupForm">
-            <label for="username">Username: </label>
-            <input required type="text" id="username" v-model="username"> <br>
+            <label for="username">Email: </label>
+            <input required type="email" id="username" v-model="username"> <br>
             <label for="password">Password: </label>
             <input required type="password" id="password" v-model="password"> <br>
             <input type="submit" v-on:click='onSubmit'>
@@ -24,8 +24,8 @@
     <div class="login">
         <h2>Log In</h2>
         <form id="loginForm">
-            <label for="userName">Username:</label>
-            <input required type="text" id="userName" v-model="userName"> <br>
+            <label for="userName">Email:</label>
+            <input required type="email" id="userName" v-model="userName"> <br>
             <label for="passWord">Password:</label>
             <input required type="password" id="passWord" v-model="passWord"> <br>
             <input type="submit" v-on:click='onSubmit'>
