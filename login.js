@@ -48,6 +48,15 @@ var loginApp = new Vue({
     }
 })
 
+var loggedIn = localStorage.getItem("loggedInUser")
+
+var displayUserApp = new Vue({
+    el: '#displayUser',
+    data: {
+        result: loggedIn,
+    }
+})
+
 function proceed() {
     if (localStorage.loggedInUser === undefined) {
         alert("Please log in.");
@@ -216,22 +225,3 @@ function priceLowToHigh() {
     document.getElementById("sortPrice1").style.display = "none";
     document.getElementById("sortPrice2").style.display = "inline-block";
 }
-
-/*var reviewApp = new Vue ({
-    el: '#reviews',
-    data: {
-        activities = [],
-        stars = [],
-        reviews = [],
-        activity = '',
-        star = '',
-        review = '',
-    },
-    methods: {
-        onSubmit: function() {
-            var activity = this.activity;
-            var star = this.star;
-            var review = this.review;
-        }
-    }
-})*/
