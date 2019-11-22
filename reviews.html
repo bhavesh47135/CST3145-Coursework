@@ -46,15 +46,11 @@
                         <option>4</option>
                         <option>5</option>
                 </select> <br>
-                <label for="review">Review: </label>
-                <input required type="text" id="review" v-model="review"> <br>
-                <input type="submit" v-on:click='submitReview'>
+                <button v-on:click="submitReview"> Complete Review</button>
             </form>
-            <div v-for="activity in courses" class="displayReviews">
-                <li v-repeat="courses">
-                    {{courses}}
-                </li>
-            </div>
+            <button onclick="increase()">Submit Review</button>
+            <p id="displayReviews1"></p>
+            <p id="displayReviews2"></p>
         </div>
     </div>
 
@@ -62,35 +58,36 @@
     <script>
         var courses = []
         var stars = []
-        var reviews = []
+        var a = 1;
+        var x = "";
+        var y = "";
+
+        function increase(){
+            x = localStorage.getItem("course-" + a);
+            y = localStorage.getItem("stars-" + a);
+            document.getElementById("displayReviews1").innerHTML = "Course: " + x
+            document.getElementById("displayReviews2").innerHTML = "Rating: " + y + "/5"
+            a++;
+        }
         
         var reviewApp = new Vue ({
             el: '#reviews',
             data: {
                 activity: '',
                 star: '',
-                review: '',
             },
             methods: {
                 submitReview: function() {
                     activity = this.activity;
                     star = this.star;
-                    review = this.review;
                     courses.push(activity);
                     stars.push(star);
-                    reviews.push(review);
-                    //for (i = 0; i < courses.length; i++)
-                        //document.write(courses.join(" <br> "));
-                        //document.write(stars.join(" <br> "));
-                        //document.write(reviews.join(" <br> "));
-                }
-            },
-            computed: {
-                displayReviews() {
-                    return activity
+                    localStorage.setItem("course-" + a, activity);
+                    localStorage.setItem("stars-" + a, stars);
                 }
             }
         })
+        
     </script>
 </body>
 
